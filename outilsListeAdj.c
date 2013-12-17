@@ -1,11 +1,11 @@
 #include "cellule.h"
-#include "liste.h"
+#include "listeAdj.h"
 #include <stdio.h>
 #include <stdlib.h>
 
-void afficherListe(Liste* liste){
-	if(liste->tete != NULL){
-		Cellule* c = liste->tete;
+void afficherListeAdj(ListeAdj* listeAdj){
+	if(listeAdj->tete != NULL){
+		Cellule* c = listeAdj->tete;
 		while(c != NULL){
 			if(c->predecesseur == NULL)
 				printf("NULL      ");
@@ -27,10 +27,10 @@ void afficherListe(Liste* liste){
 	
 }
 
-int compterListe(Liste* liste){
+int compterListeAdj(ListeAdj* listeAdj){
 	int i=0;
-	if(liste->tete != NULL){
-		Cellule* c = liste->tete;
+	if(listeAdj->tete != NULL){
+		Cellule* c = listeAdj->tete;
 		while(c!=NULL){
 			i++;
 			c=c->successeur;
@@ -38,6 +38,5 @@ int compterListe(Liste* liste){
 	}
 	else
 		i=0;
-	//printf("La liste contient %d cellules\n",i);
 	return i;
 }

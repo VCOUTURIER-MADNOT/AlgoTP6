@@ -3,6 +3,7 @@
 #include "graphe.h"
 #include <stdbool.h>
 #include "file.h"
+#include "outilsGraphe.h"
 
 int main(){
 	Graphe* graphe = creerGraphe("graphe2.txt");
@@ -11,7 +12,7 @@ int main(){
 	afficherParcoursProfondeur(graphe,graphe->tabSommet[0]);
 	afficherListesAdjacences(graphe);
 	afficherMatriceAdjacences(graphe);
-	
+	afficherAretes(graphe);
 	detruireGraphe(&graphe);
 
 	return 0;	

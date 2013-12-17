@@ -1,15 +1,16 @@
 #include "graphe.h"
-#include "liste.h"
-#include "outilsListe.h"
+#include "listeAdj.h"
+#include "outilsListeAdj.h"
 #include "cellule.h"
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
 #include <stdbool.h>
 #include "file.h"
+#include "outilsGraphe.h"
 
-Liste** creerListesAdjacences(char* nomFichier){
-	Liste** liste = NULL;
+ListeAdj** creerListeAdjacences(char* nomFichier){
+	ListeAdj** listeAdj = NULL;
 	FILE *fichier = fopen(nomFichier,"r");
 	
 	int indice;
@@ -22,11 +23,11 @@ Liste** creerListesAdjacences(char* nomFichier){
 		fscanf(fichier,"%s %d",mot,&nbrSommet);
 
 		
-		liste = malloc(sizeof(Liste) * nbrSommet);
+		listeAdj = malloc(sizeof(ListeAdj) * nbrSommet);
 		
 		int i;
 		for(i=0;i<nbrSommet;i++){
-			liste[i]=creerListe();
+			listeAdj[i]=creerListeAdj();
 		}
 
 		do
@@ -44,8 +45,8 @@ Liste** creerListesAdjacences(char* nomFichier){
 				c1 = creerCellule(indice, poids);
 				c2 = creerCellule(valeur, poids);
 			
-				inserer(liste[indice],c2);
-				inserer(liste[valeur],c1);
+				inserer(listeAdj[indice],c2);
+				inserer(listeAdj[valeur],c1);
 			}
 		}while(strcmp(mot,"finDefAretes"));		
 		
@@ -54,7 +55,7 @@ Liste** creerListesAdjacences(char* nomFichier){
 
 	fclose(fichier);
 	
-	return liste;
+	return listeAdj;
 }
 
 void afficherListesAdjacences(Graphe* graphe){
@@ -62,7 +63,7 @@ void afficherListesAdjacences(Graphe* graphe){
 		int i;
 		for(i = 0;i<graphe->nbrSommet;i++){
 			Cellule* c = graphe->listeAdj[i]->tete;
-			printf("Liste %d :\t",i);
+			printf("ListeAdj %d :\t",i);
 			while(c != NULL){
 				printf("%d",c->cle );
 				c=c->successeur;
@@ -146,7 +147,7 @@ Graphe* creerGraphe(char* nomFichier){
 	graphe->value = value;
 	graphe->complet = complet;
 	
-	graphe->listeAdj = creerListesAdjacences(nomFichier);
+	graphe->listeAdj = creerListeAdjacences(nomFichier);
 	graphe->matriceAdj = creerMatriceAdjacences(nomFichier);
 
 	graphe->tabSommet = (Sommet**) malloc(sizeof(Sommet) * graphe->nbrSommet);
@@ -156,6 +157,7 @@ Graphe* creerGraphe(char* nomFichier){
 		graphe->tabSommet[i]->cle=i;
 	}
 	
+	initialiserAretes(graphe);
 	fclose(fichier);
 	
 	return graphe;
@@ -172,19 +174,6 @@ void detruireGraphe(Graphe** graphe){
 	free((*graphe)->listeAdj);
 	free((*graphe)->matriceAdj);
 	free(*graphe);
-}
-
-Sommet* creerSommet(){
-	Sommet* sommet;
-	sommet = malloc(sizeof(Sommet));
-
-	sommet->couleur='b';
-	sommet->pere = NULL;
-	sommet->distance = 0;
-	sommet->debut=0;
-	sommet->fin=0;
-
-	return sommet;
 }
 
 void detruireTableauSommet(Sommet** sommet){
@@ -287,5 +276,27 @@ void afficherParcoursProfondeur(Graphe* g, Sommet* origine){
 	int i;
 	for(i=0;i<g->nbrSommet;i++){
 		printf("Sommet %i:\t debut: %d \t fin:%d\n",g->tabSommet[i]->cle,g->tabSommet[i]->debut,g->tabSommet[i]->fin);
+	}
+}
+
+void initialiserAretes(Graphe* _graphe)
+{
+	int i, j, k, nbAretes;
+	Arete * arete = NULL;
+
+	nbAretes = compterAretes(_graphe);
+	_graphe->tabAretes = (Arete**) malloc(sizeof(Arete*) * nbAretes);
+	k = 0;
+	for(i = 0; i < _graphe->nbrSommet; i++)
+	{
+		for(j = i; j < _graphe->nbrSommet; j++)
+		{
+			if(_graphe->matriceAdj[i][j])
+			{
+				arete = creerArete(_graphe->tabSommet[i], _graphe->tabSommet[j], _graphe->matriceAdj[i][j]);
+				_graphe->tabAretes[k] = arete;
+				k++;
+			}
+		}
 	}
 }
