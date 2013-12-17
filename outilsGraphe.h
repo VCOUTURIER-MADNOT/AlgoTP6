@@ -5,5 +5,6 @@
 
 	int compterAretes(Graphe*);
 	void afficherAretes(Graphe*);
+	void trierTabAretes(Graphe*);
 	
 #endif

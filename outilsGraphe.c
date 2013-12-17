@@ -1,5 +1,6 @@
 #include "outilsGraphe.h"
 #include "outilsListeAdj.h"
+#include "tri.h"
 #include <stdio.h>
 
 int compterAretes(Graphe* _graphe)
@@ -27,4 +28,9 @@ void afficherAretes(Graphe* _graphe)
 		printf("\t Sommet v : %d\n", _graphe->tabAretes[i]->v->cle);
 		printf("\t Poids : %d\n", _graphe->tabAretes[i]->poids);
 	}
+}
+
+void trierTabAretes(Graphe* _graphe)
+{
+	triInsertion(_graphe->tabAretes, compterAretes(_graphe));
 }

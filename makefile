@@ -1,5 +1,5 @@
 CC = gcc -Wall -O3
-OBJETS = main.o graphe.o cellule.o listeAdj.o outilsListeAdj.o file.o outilsGraphe.o arete.o sommet.o
+OBJETS = main.o graphe.o cellule.o listeAdj.o outilsListeAdj.o file.o outilsGraphe.o arete.o sommet.o tri.o
 
 main: $(OBJETS)
 	$(CC) -o main $(OBJETS) -lm
@@ -30,6 +30,9 @@ arete.o: arete.c arete.h
 
 sommet.o: sommet.c sommet.h
 	$(CC) -c sommet.c
+
+tri.o: tri.c tri.h
+	$(CC) -c tri.c
 
 clean:
 	rm *.o

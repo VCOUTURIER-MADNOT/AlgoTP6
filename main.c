@@ -12,6 +12,7 @@ int main(){
 	afficherParcoursProfondeur(graphe,graphe->tabSommet[0]);
 	afficherListesAdjacences(graphe);
 	afficherMatriceAdjacences(graphe);
+	trierTabAretes(graphe);
 	afficherAretes(graphe);
 	detruireGraphe(&graphe);
 
