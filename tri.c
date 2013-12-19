@@ -1,4 +1,6 @@
 #include "tri.h"
+#include "tas.h"
+#include "util.h"
 
 void triInsertion(Arete** _array, int _taille)
 {
@@ -15,4 +17,18 @@ void triInsertion(Arete** _array, int _taille)
 		}
 		_array[i+1] = cle;
 	}
+}
+
+void triTas(Sommet** _array, int _arraySize)
+{
+	int index;
+	Tas * tas = construireTasMin(_array, _arraySize);
+	for (index = _arraySize-1; index >= 1; index--)
+	{
+		echanger(&tas->tabSommets, tas->length, index, 0);
+		tas->length--;
+		entasserMin(tas, 0);
+	}
+	
+	detruireTas(&tas);
 }

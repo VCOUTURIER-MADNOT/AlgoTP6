@@ -6,5 +6,7 @@
 	int compterAretes(Graphe*);
 	void afficherAretes(Graphe*);
 	void trierTabAretes(Graphe*);
+
+	void acm_prim(Graphe*, Sommet*);
 	
 #endif

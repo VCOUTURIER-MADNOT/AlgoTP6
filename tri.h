@@ -3,6 +3,6 @@
 
 	#include "arete.h"
 	void triInsertion(Arete** _array, int _taille);
-	void triTas(int * _array, int _arraySize);
+	void triTas(Sommet** _array, int _arraySize);
 
 #endif
