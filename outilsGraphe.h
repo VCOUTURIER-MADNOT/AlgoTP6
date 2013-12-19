@@ -8,5 +8,6 @@
 	void trierTabAretes(Graphe*);
 
 	void acm_prim(Graphe*, Sommet*);
-	
+	EnsembleAretes* acm_kruskal(Graphe*);
+	int calculerPoidsEnsembleAretes(EnsembleAretes*);
 #endif

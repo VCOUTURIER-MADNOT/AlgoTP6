@@ -25,7 +25,6 @@ void entasserMin(Tas * _tas, int _index)
 
 	if (g < _tas->length && _tas->tabSommets[g]->distance < _tas->tabSommets[_index]->distance)
 	{
-		printf("index : %d/%d, gauche : %d/%d\n", _index, _tas->tabSommets[_index]->distance, g, _tas->tabSommets[g]->distance);
 		min = g;
 	}
 	else
@@ -35,13 +34,11 @@ void entasserMin(Tas * _tas, int _index)
 
 	if ( d < _tas->length && _tas->tabSommets[d]->distance < _tas->tabSommets[min]->distance)
 	{
-		printf("index : %d, droit: %d \n", _tas->tabSommets[_index]->distance, _tas->tabSommets[d]->distance);
 		min = d;
 	}
 
 	if (min != _index)
 	{
-		printf("On echange %d et %d\n",_index, min);
 		echanger( &_tas->tabSommets, _tas->length, _index, min);
 		entasserMin(_tas, min);
 	}

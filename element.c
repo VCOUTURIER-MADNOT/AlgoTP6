@@ -8,6 +8,7 @@ Element* creerElement(int _cle)
 	element = (Element*) malloc(sizeof(Element));
 	element->cle = _cle;
 	element->successeur = NULL;
+	element->representant = element;
 
 	return element;
 }

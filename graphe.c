@@ -300,3 +300,102 @@ void initialiserAretes(Graphe* _graphe)
 		}
 	}
 }
+
+void creerTabEnsemble(Graphe* _graphe)
+{
+	int i;
+	Sommet* s = NULL;
+	Ensemble** tabEnsembles = (Ensemble**)malloc(sizeof(Ensemble*)*_graphe->nbrSommet);
+
+	for(i = 0; i<_graphe->nbrSommet; i++)
+	{
+		s = _graphe->tabSommet[i];
+		tabEnsembles[s->cle] = creerEnsemble(s);
+	}
+	_graphe->tabEnsembles = tabEnsembles;
+}
+
+Ensemble* creerEnsemble(Sommet* _sommet)
+{
+	Ensemble* ensemble = NULL;
+	Element* element = NULL;
+
+	ensemble = (Ensemble*)malloc(sizeof(Ensemble));
+	element = creerElement(_sommet->cle);
+
+	ensemble->tete = element;
+	ensemble->queue = element;
+
+	_sommet->ensemble = ensemble;
+
+	return ensemble;
+}
+
+Element* trouverEnsemble(Sommet* _sommet)
+{
+	return _sommet->ensemble->tete;
+}
+
+void unionEnsemble(Sommet* _x, Sommet* _y, Graphe* _graphe)
+{
+	Ensemble* ensembleX;
+	Ensemble* ensembleY;
+	Element* element;
+	ensembleX = _x->ensemble;
+	ensembleY = _y->ensemble;
+
+	ensembleX->queue->successeur = ensembleY->tete;
+	ensembleX->queue = ensembleY->queue;
+	element = ensembleY->tete;
+	while(element != NULL)
+	{
+		_graphe->tabSommet[element->cle]->ensemble = ensembleX;
+		element = element->successeur;
+	}
+}
+
+Sommet* creerSommet(){
+	Sommet* sommet;
+	sommet = malloc(sizeof(Sommet));
+
+	sommet->couleur='b';
+	sommet->pere = NULL;
+	sommet->distance = 0;
+	sommet->debut=0;
+	sommet->fin=0;
+
+	sommet->ensemble = NULL;
+
+	return sommet;
+}
+
+Arete* 	creerArete(Sommet* _u, Sommet* _v, int _poids)
+{
+	Arete* arete = (Arete*) malloc(sizeof(Arete));
+	arete->u = _u;
+	arete->v = _v;
+	arete->poids = _poids;
+
+	return arete;
+}
+
+void	detruireArete(Arete** _arete)
+{
+	free((*_arete)->u);
+	free((*_arete)->v);
+	free((*_arete));
+}
+
+EnsembleAretes* creerEnsembleAretes()
+{
+	EnsembleAretes* ensembleA = (EnsembleAretes*)malloc(sizeof(EnsembleAretes));
+	ensembleA->arete = NULL;
+
+	return ensembleA;
+}
+
+void insererEnsembleAretes(EnsembleAretes* _ensembleAretes, Arete* _arete)
+{
+	_arete->successeur = _ensembleAretes->arete;
+	_ensembleAretes->arete = _arete;
+}

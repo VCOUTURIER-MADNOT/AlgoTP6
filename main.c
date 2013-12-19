@@ -8,13 +8,16 @@
 #include "util.h"
 
 int main(){
-	Tas* tas = NULL;
 	Graphe* graphe = creerGraphe("graphe2.txt");
-	
-	afficherChemin(graphe,graphe->tabSommet[1],graphe->tabSommet[11]);
-	afficherParcoursProfondeur(graphe,graphe->tabSommet[0]);
+	EnsembleAretes* e = NULL;
+
+	/*afficherChemin(graphe,graphe->tabSommet[1],graphe->tabSommet[11]);
+	afficherParcoursProfondeur(graphe,graphe->tabSommet[0]);*/
 	afficherListesAdjacences(graphe);
-	afficherMatriceAdjacences(graphe);
+	/*afficherMatriceAdjacences(graphe);
+
+	e = acm_kruskal(graphe);
+	printf("\n\n\n Le poids de l'acm par kruskal est :%d\n", calculerPoidsEnsembleAretes(e));*/
 
 	acm_prim(graphe, graphe->tabSommet[0]);
 

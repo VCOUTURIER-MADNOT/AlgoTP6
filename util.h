@@ -3,7 +3,7 @@
 	
 	#include <stdio.h>
 	#include <stdlib.h>
-	#include "sommet.h"
+	#include "graphe.h"
 	#include "tas.h"
 
 	int readInputFile(const char* _filename, int ** _array, int * _arraySize);
@@ -18,6 +18,10 @@
 
 	Sommet* extraireMin(Tas*);
 
-	Sommet* chercherTas(Tas*, int);
+	Sommet* chercherSommetTas(Tas*, int);
+
+	int chercherIndexTas(Tas*, int);
+
+	void	diminuerCle(Tas*, int, int);
 
 #endif

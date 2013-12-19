@@ -54,7 +54,6 @@ Sommet* extraireMin(Tas* _tas)
 	echanger(&(_tas->tabSommets), _tas->length, 0, _tas->length-1);
 	_tas->length--;
 	entasserMin(_tas, 0);
-
 	return sommet; 
 }
 
@@ -96,7 +95,7 @@ int * arrayCopy(int * _source, int _sizeSource)
 	return array;
 }
 
-Sommet* chercherTas(Tas* _tas, int _cle)
+Sommet* chercherSommetTas(Tas* _tas, int _cle)
 {
 	int i;
 
@@ -109,4 +108,37 @@ Sommet* chercherTas(Tas* _tas, int _cle)
 	}
 
 	return NULL;
+}
+
+int chercherIndexTas(Tas* _tas, int _cle)
+{
+	int i;
+
+	for(i = 0; i < _tas->length; i++)
+	{
+		if(_tas->tabSommets[i]->cle == _cle)
+		{
+			return i;
+		}
+	}
+
+	return -1;
+}
+
+void	diminuerCle(Tas* _tas, int _index, int _val)
+{
+	if(_val > _tas->tabSommets[_index]->distance)
+	{
+		printf("On ne peut que diminuer la cle et non l'augmenter !! \n");
+	}
+	else
+	{
+		_tas->tabSommets[_index]->distance = _val;
+
+		while(_index >= 1 && _tas->tabSommets[parent(_index)]->distance > _tas->tabSommets[_index]->distance)
+		{
+			echanger(&(_tas->tabSommets), _tas->length, _index, parent(_index));
+			_index = parent(_index);
+		}
+	}
 }

@@ -1,7 +1,7 @@
 #ifndef DEF_TAS
 #define DEF_TAS
 
-	#include "sommet.h"
+	#include "graphe.h"
 	typedef struct
 	{
 		int length;

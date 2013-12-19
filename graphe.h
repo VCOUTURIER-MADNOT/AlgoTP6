@@ -4,8 +4,35 @@
 #include "listeAdj.h"
 #include "cellule.h"
 #include "outilsListeAdj.h"
-#include "sommet.h"
-#include "arete.h"
+#include "element.h"
+
+
+typedef struct
+{
+	Element* tete;
+	Element* queue;
+}Ensemble;
+
+typedef struct So
+{
+	char 		couleur;
+	int 		distance;
+	struct So* 	pere;
+	int 		cle;
+	int 		debut;
+	int 		fin;
+
+	Ensemble*	ensemble;
+} Sommet ;
+
+typedef struct Arete1
+{
+	Sommet* 	u;
+	Sommet* 	v;
+	int			poids;
+
+	struct Arete1*	successeur;
+} Arete;
 
 typedef struct{
 	int 		nbrSommet;
@@ -16,7 +43,13 @@ typedef struct{
 	int** 		matriceAdj;
 	Sommet** 	tabSommet;
 	Arete** 	tabAretes;
+	Ensemble**	tabEnsembles;
+
 } Graphe ;
+
+typedef struct{
+	Arete*	arete;
+} EnsembleAretes;
 
 ListeAdj** creerListesAdjacences(char*);
 void afficherListesAdjacences(Graphe*);
@@ -31,5 +64,18 @@ void parcoursProfondeur(Graphe*,Sommet*);
 void visiterPP(Graphe*, Sommet*, int*);
 void afficherParcoursProfondeur(Graphe*,Sommet*);
 void initialiserAretes(Graphe*);
+void creerTabEnsemble(Graphe*);
+
+Ensemble* creerEnsemble(Sommet*);
+Element* trouverEnsemble(Sommet*);
+void unionEnsemble(Sommet*, Sommet*, Graphe*);
+
+Sommet* creerSommet();
+
+Arete* 	creerArete(Sommet* _u, Sommet* _v, int _poids);
+void	detruireArete(Arete** _arete);
+
+EnsembleAretes* creerEnsembleAretes();
+void insererEnsembleAretes(EnsembleAretes*, Arete*);
 
 #endif
