@@ -1,5 +1,5 @@
 CC = gcc -Wall -O3
-OBJETS = main.o graphe.o cellule.o listeAdj.o outilsListeAdj.o file.o outilsGraphe.o tri.o tas.o util.o element.o
+OBJETS = main.o graphe.o cellule.o listeAdj.o outilsListeAdj.o file.o outilsGraphe.o tri.o tas.o util.o element.o outilsSaisie.o
 main: $(OBJETS)
 	$(CC) -o main $(OBJETS) -lm
 
@@ -35,5 +35,9 @@ tas.o: tas.c tas.h
 
 util.o: util.c util.h
 	$(CC) -c util.c
+
+outilsSaisie.o: outilsSaisie.c outilsSaisie.h
+	$(CC) -c outilsSaisie.c
+	
 clean:
 	rm *.o

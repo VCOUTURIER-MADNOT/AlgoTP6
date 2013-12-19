@@ -94,7 +94,6 @@ void acm_prim(Graphe* _graphe, Sommet* _sommet)
 	}
 
 	_sommet->distance = 0;
-
 	/* On construit notre file de priorité par l'implémentation d'un tas min */
 	tas = construireTasMin(_graphe->tabSommet, _graphe->nbrSommet);
 
@@ -102,6 +101,15 @@ void acm_prim(Graphe* _graphe, Sommet* _sommet)
 	while(tas->length != 0)
 	{
 		sommetU = extraireMin(tas);
+		if(sommetU->cle == _sommet->cle)
+		{
+			printf("On commence par le sommet %d. \n", _sommet->cle);
+		}
+		else
+		{
+			printf("On récupère le sommet %d par l'arete de poids %d \n", sommetU->cle, sommetU->distance);	
+		}
+		
 		cellV = _graphe->listeAdj[sommetU->cle]->tete;
 		/* On calcul le poids de l'arbre couvrant */
 		total += sommetU->distance;

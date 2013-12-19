@@ -239,7 +239,7 @@ void afficherChemin(Graphe* g, Sommet* origine, Sommet* sommet){
 	}
 }
 
-void parcoursProfondeur(Graphe* g, Sommet* sommet){
+void parcoursProfondeur(Graphe* g){
 	int i, date;
 	for(i=0;i<g->nbrSommet;i++){
 		g->tabSommet[i]->couleur='b';
@@ -270,8 +270,8 @@ void visiterPP(Graphe* g, Sommet* u, int* date){
 	u->couleur = 'n';
 }
 
-void afficherParcoursProfondeur(Graphe* g, Sommet* origine){
-	parcoursProfondeur(g,origine);
+void afficherParcoursProfondeur(Graphe* g){
+	parcoursProfondeur(g);
 
 	int i;
 	for(i=0;i<g->nbrSommet;i++){
